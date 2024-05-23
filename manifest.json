@@ -3,17 +3,20 @@
   "description": "The description goes here",
   "version": "1.0.0",
   "manifest_version": 3,
-  "permissions":[],
+  "permissions": [],
   "action": {},
   "background": {},
   "host_permissions": [
-    "https://command.truckerpath.com/*"
+    "https://command.truckerpath.com/*",
+    "https://maps.googleapis.com/*"
   ],
   "content_scripts": [
     {
-      "js": ["src/apps/load-map/main.tsx"],
+      "js": [
+        "src/apps/load-map/main.tsx"
+      ],
       "matches": [
-        "https://command.truckerpath.com/load-board/search-loads/result/*"
+        "https://command.truckerpath.com/load-board/search-loads/*"
       ]
     }
   ]

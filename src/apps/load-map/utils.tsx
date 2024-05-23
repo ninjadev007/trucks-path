@@ -1,4 +1,7 @@
-function appendNodeAtIndex(parentNode: Element, index: number, newNode: Element) {
+
+export const appendNodeAtIndex = (parentNode: Element, index: number, newNode: Element) => {
+    if (!parentNode) return
+    if (!parentNode.children) return
     const children = parentNode.children;
     if (index >= 0 && index <= children.length) {
         if (index === children.length) {
@@ -14,9 +17,7 @@ function appendNodeAtIndex(parentNode: Element, index: number, newNode: Element)
     }
 }
 export const loadBoardTableHeader = () => {
-    console.log("loading-======")
     const tableRows = document.querySelector('table thead tr') as Element;
-    console.log(tableRows)
     if (!tableRows) return
     const mapLink = tableRows.getElementsByClassName("map-link")
     if (mapLink.length > 0) return
@@ -25,29 +26,35 @@ export const loadBoardTableHeader = () => {
     newElement.classList.add("map-link")
     var textNode = document.createTextNode("Map Link");
     newElement.appendChild(textNode)
-    appendNodeAtIndex(tableRows, 2, newElement)
+    appendNodeAtIndex(tableRows, 8, newElement)
 }
 
-export const onBodyUpdate = () => {
-    // Select the <body> element
+export const onBodyUpdate = (callback: any) => {
     const body = document.querySelector('body') as Element;
-
-    // Create a new MutationObserver
     const observer = new MutationObserver(function (mutationsList, observer) {
-        // Loop through each mutation
         for (let mutation of mutationsList) {
-            // Check if nodes were added or removed
             if (mutation.type === 'childList') {
-                console.log('Nodes inside <body> were added or removed.');
-                // Your code to handle the update here
+                callback()
             }
         }
     });
-
-    // Configuration of the observer
     const config = { childList: true, subtree: true };
-
-    // Start observing the <body> element
     observer.observe(body, config);
-
+}
+export const addTableUpdateListner = (callback: any) => {
+    const tableContainer = document.querySelector('table tbody') as Element;
+    if (!tableContainer) return
+    if (tableContainer.classList.contains('listner-added')) return
+    tableContainer.classList.add('listner-added')
+    const observer = new MutationObserver((mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Data has been loaded into the table
+                callback(mutation.addedNodes);
+            }
+        }
+    });
+    // Observer configuration: watch for child nodes being added or removed
+    const config = { childList: true, subtree: true };
+    observer.observe(tableContainer, config);
 }

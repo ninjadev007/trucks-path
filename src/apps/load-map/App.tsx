@@ -53,7 +53,7 @@ export const App = () => {
 
     // ===== appending map =====
     var iframe = document.createElement('iframe');
-    iframe.src = `http://localhost:5173/?drop_latitude=${drop.lat}&drop_longitude=${drop.lng}&pick_latitude=${pick.lat}&pick_longitude=${pick.lng}`;
+    iframe.src = `http://localhost:8080/?drop_latitude=${drop.lat}&drop_longitude=${drop.lng}&pick_latitude=${pick.lat}&pick_longitude=${pick.lng}`;
     iframe.width = '100%';
     iframe.height = '400px';
     iframe.style.border = 'none';

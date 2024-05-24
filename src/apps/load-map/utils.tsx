@@ -31,7 +31,7 @@ export const loadBoardTableHeader = () => {
 
 export const onBodyUpdate = (callback: any) => {
     const body = document.querySelector('body') as Element;
-    const observer = new MutationObserver(function (mutationsList, observer) {
+    const observer = new MutationObserver(function (mutationsList) {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 callback()
@@ -46,7 +46,7 @@ export const addTableUpdateListner = (callback: any) => {
     if (!tableContainer) return
     if (tableContainer.classList.contains('listner-added')) return
     tableContainer.classList.add('listner-added')
-    const observer = new MutationObserver((mutationsList, observer) => {
+    const observer = new MutationObserver((mutationsList) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                 // Data has been loaded into the table

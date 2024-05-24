@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "extension_dev": "vite --config vite.config.extension",
+    "website_dev":"vite --config vite.config.website",
+    "build_website": "tsc && vite build --config vite.config.website",
+    "build_extension": "tsc && vite build --config vite.config.extension",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
